@@ -1,0 +1,75 @@
+
+{% load static %}
+<!-- <script src="{% static 'orders/js/order_status.js' %}"></script> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Tracking</title>
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+</head>
+<body>
+    <script src="order_status.js"></script>
+
+    <div class="tracking-container">
+        <h1>Shipment Tracking</h1>
+        <div class="status">
+            <form method="get" action="{% url 'order_status' %}">
+                <label for="order_id"><b>Order ID:</b></label>
+                <p><input type="text" id="order_id" name="order_id" value="{{ order_id }}" required> </p>
+                <button type="submit">Check Status</button>
+            </form>
+
+        {% if order %}
+            <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+            <p><strong>Customer Name:</strong> {{ order.customer_name }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+            <p><strong>Expected delivery:</strong> {{ order.expected_delivery_date }}</p>
+
+            <script>
+            // Passing the status to javascript
+            updateProgressBar(order.status);
+            </script>
+        {% else %}
+            <p>No order found with ID {{ order_id }}</p>
+        {% endif %}
+
+            <!-- {% if order %}
+                <h2>{{ order.get_current_status_display }}</h2>
+                <p><b>Customer Name:</b> {{ order.customer_name }}</p>
+                <p>Expected delivery: <strong>{{ expected_delivery }}</strong></p>
+            {% elif order_id %}
+                <h2>No order found with ID {{ order_id }}</h2>
+            {% endif %} -->
+        </div>
+        
+        <div id="progress-container" class="progress-container">
+            <div class="progress-step {% if order.status == 'order_placed' or step > 1 %}completed{% endif %} {% if order.status == 'order_placed' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">Order placed</div>
+            </div>
+            <div class="progress-bar {% if step >= 2 %}completed{% endif %}"></div>
+            <div class="progress-step {% if order.status == 'shipped' or step > 2 %}completed{% endif %} {% if order.status == 'shipped' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">Shipped</div>
+            </div>
+            <div class="progress-bar {% if step >= 3 %}completed{% endif %}"></div>
+            <div class="progress-step {% if order.status == 'out_for_delivery' or step > 3 %}completed{% endif %} {% if order.status == 'out_for_delivery' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">Out for Delivery</div>
+            </div>
+            <div class="progress-bar {% if step >= 4 %}completed{% endif %}"></div>
+            <div class="progress-step {% if order.status == 'delivered' or step > 4 %}completed{% endif %} {% if order.status == 'delivered' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">Delivered</div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</body>
+</html>

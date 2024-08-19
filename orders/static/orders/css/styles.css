@@ -1,0 +1,190 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.tracking-container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.status h2 {
+    color: #f60;
+}
+
+/* Progress Bar Styles */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+}
+
+.progress-step {
+    text-align: center;
+    position: relative;
+    flex-grow: 1;
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: #ddd;
+    flex-grow: 1;
+    margin: 0 5px;
+    position: relative;
+    top: -10px; /* Adjusts the bar to align with the circles */
+}
+
+.progress-bar.completed {
+    background-color: #006400; /* Dark green for completed steps */
+    height: 4px;
+}
+
+.circle {
+    width: 24px;
+    height: 24px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.completed .circle {
+    background-color: #006400; /* Dark green color for completed steps */
+    color: white;
+}
+
+.label {
+    font-weight: normal;
+    color: #666;
+    margin-top: 5px;
+}
+
+.completed .label {
+    font-weight: bold;
+    color: #006400;
+}
+
+/* Highlight the current step */
+.progress-step.current .circle {
+    background-color: #FFA500; /* Orange color for current step */
+    color: white;
+}
+
+.progress-step.current .label {
+    font-weight: bold;
+    color: #FFA500; /* Orange color for current step */
+}
+
+.onboarding-container {
+    width: 50%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.onboarding-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group select, .form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #006400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #004c00;
+}
+
+.progress-step {
+    opacity: 0.5; /* Default, inactive state */
+    color: grey;
+}
+
+.progress-step.active {
+    opacity: 1; /* Active state */
+    color: orange;
+}
+
+/* Additional styles for progress bar steps */
+.progress-step.completed .circle {
+    background-color: #006400; /* Completed step circle color */
+}
+
+.progress-step.completed .label {
+    color: #006400; /* Completed step label color */
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    padding: 15px;
+    color: #fff;
+}
+
+.sidebar h2 {
+    color: #ffffff;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+}

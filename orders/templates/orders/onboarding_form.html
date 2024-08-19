@@ -1,0 +1,285 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Customer Onboarding</title>
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+    <style>
+        .apn-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .apn-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .apn-title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .apn-field {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .apn-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <h1>New Customer Onboarding</h1>
+        <form id="onboarding-form" method="post">
+        
+            <div class="form-group">
+                <label for="customer-name">Customer Name:</label>
+                <input type="text" id="customer-name" name="customer_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="iot-product-type">IoT Product Type:</label>
+                <select id="iot-product-type" name="iot_product_type" required>
+                    <option value="">Select Product Type</option>
+                    <option value="NBIoT">NBIoT</option>
+                    <option value="WBIoT">WBIoT</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="apns-required">No. of APNs required:</label>
+                <select id="apns-required" name="apns_required" onchange="generateAPNFields()" required>
+                    <option value="">Select Number</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div id="apn-details-container"></div>
+    
+
+            <div class="form-group">
+                <label for="home-circle">Home Circle:</label>
+                <input type="text" id="home-circle" name="home_circle" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastmile">Last Mile:</label>
+                <select id="lastmile" name="lastmile" required>
+                    <option value="MPLS">MPLS</option>
+                    <option value="Internet">Internet</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="apn-type">APN Type:</label>
+                <select id="apn-type" name="apn_type" required>
+                    <option value="shared APN">Shared APN</option>
+                    <!-- Add other options as needed -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ip-schema">IP Schema:</label>
+                <select id="ip-schema" name="ip_schema" required>
+                    <option value="Static">Static</option>
+                    <option value="Dynamic">Dynamic</option>
+                    
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ip-address-family">IP Address Family:</label>
+                <select id="ip-address-family" name="ip_address_family" required>
+                    <option value="IPv4">IPV4</option>
+                    <option value="IPv6">IPV6</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="device-ip-owner">Device IP Owner:</label>
+                <select id="device-ip-owner" name="device_ip_owner" required>
+                    <option value="Jio">JIO</option>
+                    <option value="Customer">Customer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dns-owner">DNS Owner:</label>
+                <select id="dns-owner" name="dns-owner" required>
+                    <option value="Yes">JIO</option>
+                    <option value="No">Customer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dns-ip">DNS IP:</label>
+                <input type="text" id="dns-ip" name="dns-ip">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="billing-type">Billing Type:</label>
+                <select id="billing-type" name="billing_type" required>
+                    <option value="Postpaid">Postpaid</option>
+    
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="voice-service">Voice Services:</label>
+                <select id="voice-service" name="voice_service" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="voice-mt-service">Voice MT Service:</label>
+                <select id="voice-mt-service" name="voice_mt_service" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sms-services">SMS Services:</label>
+                <select id="sms-services" name="sms_services" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sms-mt-service">SMS MT Service:</label>
+                <select id="sms-mt-service" name="sms_mt_service" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="data-service">Data Service:</label>
+                <select id="data-service" name="data_service" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="national-roaming">National Roaming:</label>
+                <select id="national-roaming" name="national_roaming" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="international-roaming">International Roaming:</label>
+                <select id="international-roaming" name="international_roaming" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="goToConfirmation()">Next</button>
+        </form>
+    </div>
+
+    <script>
+        function generateAPNFields() {
+            const container = document.getElementById('apn-details-container');
+            container.innerHTML = ''; // Clear the container
+
+            const numberOfAPNs = document.getElementById('apns-required').value;
+
+            for (let i = 1; i <= numberOfAPNs; i++) {
+                const apnField = document.createElement('div');
+                apnField.className = 'apn-container';
+
+                const apnTitle = document.createElement('div');
+                apnTitle.className = 'apn-title';
+                apnTitle.textContent = 'APN-' + i;
+                apnField.appendChild(apnTitle);
+
+                const apnNameField = document.createElement('div');
+                apnNameField.className = 'apn-field';
+                apnNameField.innerHTML = `
+                    <label for="apn-name-${i}">APN Name</label>
+                    <input maxlength="16" type="text" id="apn-name-${i}" name="apn_name_${i}" required>
+                `;
+                apnField.appendChild(apnNameField);
+
+                const backhaulField = document.createElement('div');
+                backhaulField.className = 'apn-field';
+                backhaulField.innerHTML = `
+                    <label for="backhaul-${i}">Backhaul</label>
+                    <select id="backhaul-${i}" name="backhaul_${i}" required>
+                        <option value="MPLS">MPLS</option>
+                        <option value="Internet">Internet</option>
+                    </select>
+                `;
+                apnField.appendChild(backhaulField);
+
+                const apnTypeField = document.createElement('div');
+                apnTypeField.className = 'apn-field';
+                apnTypeField.innerHTML = `
+                    <label for="apn-type-${i}">APN Type</label>
+                    <select id="apn-type-${i}" name="apn_type_${i}" required>
+                        <option value="Private">Private</option>
+                        <option value="Shared">Shared</option>
+                    </select>
+                `;
+                apnField.appendChild(apnTypeField);
+
+                container.appendChild(apnField);
+            }
+        }
+
+        function goToConfirmation() {
+            const formData = new FormData(document.getElementById('onboarding-form'));
+            const data = {};
+            formData.forEach((value, key) => (data[key] = value));
+            console.log('data: ', data)
+
+            sessionStorage.setItem('customerData', JSON.stringify(data));
+            window.location.href = '/orders/confirmation/'; // redirect to the confirmation page
+            
+        }
+    </script>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}   
+      
+</body>
+</html>

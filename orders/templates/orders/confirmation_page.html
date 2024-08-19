@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Customer Details</title>
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+    <style>
+        .confirmation-container {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid black;
+        }
+
+        .confirmation-group {
+            margin-bottom: 15px;
+        }
+
+        .confirmation-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h1>Confirmation Customer Details</h1>
+        <form id="confirmation-form" method="post" action="/orders/submit/">
+            <div id="confirmation-details"></div>
+            <button type="submit">Submit</button>
+            <button type="button" onclick="editForm()">Edit</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = JSON.parse(sessionStorage.getItem('customerData'));
+            const container = document.getElementById('confirmation-details');
+
+            for (const [key, value] of Object.entries(data)) {
+                console.log(formatKey(key), key)
+                
+                const div = document.createElement('div');
+                div.className = 'confirmation-group';
+                div.innerHTML = `
+                    <label>${formatKey(key)}:</label>
+                    <span>${value}</span>
+                    <input type="hidden" name="${key}" value="${value}">
+                `;
+                container.appendChild(div);
+            }
+        });
+
+        function formatKey(key) {
+            return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function editForm() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
