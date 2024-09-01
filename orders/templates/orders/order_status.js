@@ -19,10 +19,14 @@ function updateProgressBar(status) {
 
     // Map status to progress index
     const statusMapping = {
-        'Order placed': 0,
-        'Shipped': 1,
-        'Out for Delivery': 2,
-        'Delivered': 3
+        'HSS': 0,
+        'PCRF': 1,
+        'DRA': 2,
+        'ACI FABRIC / SAR': 3,
+        'MME': 4,
+        'GW': 5,
+        'Customer Onboarding': 6,
+
     };
 
     const statusIndex = statusMapping[status] || 0;  // Default to 'Order placed'

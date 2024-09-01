@@ -4,29 +4,30 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="'viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} Homepage {% endblock %} </title></title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Homepage {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
 </head>
+
 <body>
-    <div class="'container">
+    <div class="container">
+        
         <div class="sidebar">
             <h2>iOP</h2>
             <ul>
-                <li><a href="{% url 'onboarding_form' %}" >Customer Onboarding</a></li>
+                <li><a href="{% url 'onboarding_form' %}">Customer Onboarding</a></li>
                 <li><a href="{% url 'update_customer' %}">Update Customer</a></li>
                 <li><a href="{% url 'ip_tools' %}">IP Tools</a></li>
                 <li><a href="{% url 'order_status' %}">Status</a></li>
                 <li><a href="{% url 'account' %}">Account</a></li>
             </ul>
         </div>
-
         <div class="main-content">
             {% block content %}
             <!-- Content from other templates will be inserted here -->
             {% endblock %}
         </div>
-        
     </div>
 </body>
+
 </html>

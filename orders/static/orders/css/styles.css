@@ -1,3 +1,56 @@
+/* Basic reset for margins and paddings */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Fixed header with navigation */
+header {
+    background-color: #ffffff; /* Dark blue background */
+    color: white;
+    padding: 10px 40px; /* Adjusted padding for better alignment */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+header h2 {
+    margin: 0;
+}
+
+.top-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Changed to flex for better control over spacing */
+    gap: 20px; /* Added gap for spacing between items */
+}
+
+.top-nav ul li {
+    margin-left: 20px;
+}
+
+.top-nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-content {
+    margin-left: 250px; /* Match this to the sidebar's width */
+    padding: 20px;
+    padding-top: 90px; /* Adjust for header height */
+    background-color: #f8f9fa;
+    flex-grow: 1;
+    min-height: calc(100vh - 70px); /* Ensure content area fills the screen */
+    
+}
+
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -5,6 +58,7 @@ body {
     padding: 0;
 }
 
+/* Container for tracking status and other content */
 .tracking-container {
     width: 80%;
     margin: 20px auto;
@@ -155,14 +209,20 @@ button:hover {
 
 .container {
     display: flex;
+    flex-direction: row;
     height: 100vh;
+    overflow: hidden;
 }
 
+/* Sidebar styling */
 .sidebar {
     width: 250px;
     background-color: #343a40;
     padding: 15px;
     color: #fff;
+    flex-shrink: 0;
+    /* Removed position: fixed and replaced with height calculation */
+    height: calc(100vh - 70px); /* Adjusted for header height */
 }
 
 .sidebar h2 {
@@ -175,7 +235,7 @@ button:hover {
 }
 
 .sidebar ul li {
-    margin: 15px 0;
+    margin-bottom: 25px; /* Increased spacing between options */
 }
 
 .sidebar ul li a {
@@ -184,7 +244,10 @@ button:hover {
 }
 
 .main-content {
-    flex: 1;
+    margin-left: 270px; /* Adjust for sidebar width */
     padding: 20px;
+    padding-top: 90px; /* Adjust for header height */
     background-color: #f8f9fa;
+    flex: 1;
+    min-height: calc(100vh - 70px); /* Ensure content area fills the screen */
 }

@@ -15,7 +15,7 @@
     <script src="order_status.js"></script>
 
     <div class="tracking-container">
-        <h1>Shipment Tracking</h1>
+        <h1>Configuration Status requirement NODE</h1>
         <div class="status">
             <form method="get" action="{% url 'order_status' %}">
                 <label for="order_id"><b>Order ID:</b></label>
@@ -37,35 +37,52 @@
             <p>No order found with ID {{ order_id }}</p>
         {% endif %}
 
-            <!-- {% if order %}
-                <h2>{{ order.get_current_status_display }}</h2>
-                <p><b>Customer Name:</b> {{ order.customer_name }}</p>
-                <p>Expected delivery: <strong>{{ expected_delivery }}</strong></p>
-            {% elif order_id %}
-                <h2>No order found with ID {{ order_id }}</h2>
-            {% endif %} -->
+    
         </div>
         
         <div id="progress-container" class="progress-container">
             <div class="progress-step {% if order.status == 'order_placed' or step > 1 %}completed{% endif %} {% if order.status == 'order_placed' %}current{% endif %}">
                 <div class="circle">✔</div>
-                <div class="label">Order placed</div>
+                <div class="label">HSS</div>
             </div>
+
             <div class="progress-bar {% if step >= 2 %}completed{% endif %}"></div>
             <div class="progress-step {% if order.status == 'shipped' or step > 2 %}completed{% endif %} {% if order.status == 'shipped' %}current{% endif %}">
                 <div class="circle">✔</div>
-                <div class="label">Shipped</div>
+                <div class="label">PCRF</div>
             </div>
+
             <div class="progress-bar {% if step >= 3 %}completed{% endif %}"></div>
             <div class="progress-step {% if order.status == 'out_for_delivery' or step > 3 %}completed{% endif %} {% if order.status == 'out_for_delivery' %}current{% endif %}">
                 <div class="circle">✔</div>
-                <div class="label">Out for Delivery</div>
+                <div class="label">DRA</div>
             </div>
+
             <div class="progress-bar {% if step >= 4 %}completed{% endif %}"></div>
             <div class="progress-step {% if order.status == 'delivered' or step > 4 %}completed{% endif %} {% if order.status == 'delivered' %}current{% endif %}">
                 <div class="circle">✔</div>
-                <div class="label">Delivered</div>
+                <div class="label">ACI FABRIC / SAR</div>
             </div>
+
+            <div class="progress-bar {% if step >= 5 %}completed{% endif %}"></div>
+            <div class="progress-step {% if order.status == 'delivered' or step > 4 %}completed{% endif %} {% if order.status == 'delivered' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">MME</div>
+            </div>
+
+            <div class="progress-bar {% if step >= 6 %}completed{% endif %}"></div>
+            <div class="progress-step {% if order.status == 'delivered' or step > 4 %}completed{% endif %} {% if order.status == 'delivered' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">GW</div>
+            </div>
+
+            <div class="progress-bar {% if step >= 6 %}completed{% endif %}"></div>
+            <div class="progress-step {% if order.status == 'delivered' or step > 4 %}completed{% endif %} {% if order.status == 'delivered' %}current{% endif %}">
+                <div class="circle">✔</div>
+                <div class="label">Customer Onboarding</div>
+            </div>
+
+
         </div>
         
         

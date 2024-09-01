@@ -3,6 +3,14 @@ from django.db.models import Model, CharField, DateField, IntegerField
 
 
 
+
+class DocumentModel(models.Model):
+    customer_name = models.CharField(max_length=255)
+    iot_product_type = models.CharField(max_length=100)
+    solution_document = models.FileField(upload_to='documents/')
+    type2_file = models.FileField(upload_to='type2_files/')
+    mdb_file = models.FileField(upload_to='mdb_files/')
+
 class Order(Model):
     STATUS_CHOICES = [
         ('order_placed', 'Order placed'),

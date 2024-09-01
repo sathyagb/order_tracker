@@ -25,38 +25,59 @@
 <body>
     <div class="confirmation-container">
         <h1>Confirmation Customer Details</h1>
-        <form id="confirmation-form" method="post" action="/orders/submit/">
+        <form id="confirmation-form" method="POST" action="/orders/submit/">
+            {% csrf_token %}
             <div id="confirmation-details"></div>
-            <button type="submit">Submit</button>
+            <p><button type="submit">Submit</button></p>
             <button type="button" onclick="editForm()">Edit</button>
         </form>
     </div>
+
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const data = JSON.parse(sessionStorage.getItem('customerData'));
-            const container = document.getElementById('confirmation-details');
 
-            for (const [key, value] of Object.entries(data)) {
-                console.log(formatKey(key), key)
-                
-                const div = document.createElement('div');
-                div.className = 'confirmation-group';
-                div.innerHTML = `
-                    <label>${formatKey(key)}:</label>
-                    <span>${value}</span>
-                    <input type="hidden" name="${key}" value="${value}">
-                `;
-                container.appendChild(div);
-            }
-        });
+document.addEventListener('DOMContentLoaded', function () {
+    let data = JSON.parse(sessionStorage.getItem('customerData') || '{}');
 
-        function formatKey(key) {
-            return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    for (let key in data) {
+        if (key.toLowerCase().includes('csrf')) {
+            delete data[key];
         }
+    }
+    const container = document.getElementById('confirmation-details');
 
-        function editForm() {
-            window.history.back();
-        }
+    console.log("Sanitized customer data:", data);  // Debugging: Check the loaded data
+
+    for (const [key, value] of Object.entries(data)) {
+        
+        const div = document.createElement('div');
+        div.className = 'confirmation-group';
+        div.innerHTML = `
+            <label>${formatKey(key)}:</label>
+            <span>${sanitizeHTML(value)}</span>
+            <input type="hidden" name="${key}" value="${sanitizeHTML(value)}">
+        `;
+        container.appendChild(div);
+    }
+});
+
+function formatKey(key) {
+    // Formats the key to replace underscores with spaces and capitalizes words
+    return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
+function sanitizeHTML(text) {
+    // Basic HTML escaping function to prevent XSS attacks
+    var element = document.createElement('div');
+    element.textContent = text;
+    return element.innerHTML;
+}
+
+function editForm() {
+    window.history.back();
+}
+
+    
     </script>
 </body>
 </html>

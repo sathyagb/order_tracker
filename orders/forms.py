@@ -1,4 +1,12 @@
 from django import forms
+from .models import DocumentModel
+from .models import CustomerOnboarding
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = DocumentModel
+        fields = ['customer_name', 'iot_product_type', 'solution_document', 'type2_file', 'mdb_file']
+
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
@@ -8,6 +16,11 @@ APN_CHOICES = [
     ('NB-IoT(IPDD)', 'NB-IoT(IPDD)'),
     # Add more choices here
 ]
+
+class CustomerOnboardingForm(forms.ModelForm):
+    class Meta:
+        model = CustomerOnboarding
+        fields = '__all__'
 
 class OnboardingForm(forms.Form):
     customer_name = forms.CharField(label='Customer Name', max_length=100)

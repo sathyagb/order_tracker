@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import UploadFileForm
 from django.http import JsonResponse
 from .models import CustomerOnboarding
-from .forms import OnboardingForm
+from .forms import CustomerOnboardingForm
 import logging 
 
 def homepage(request):
@@ -92,20 +92,32 @@ logger = logging.getLogger(__name__)
 
 def onboarding_form(request):
     if request.method == 'POST':
-        # Handle the form submission here
-        pass
-    return render(request, 'orders/onboarding_form.html')
+        form = CustomerOnboardingForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('confirmation')  # Redirect to the confirmation page after successful submission
+    else:
+        form = CustomerOnboardingForm()
+
+    return render(request, 'orders/onboarding_form.html', {'form': form})
 
 def confirmation_view(request):
-
+    # Assuming you want to show some confirmation data, you can fetch it from session or database
     return render(request, 'orders/confirmation_page.html')
 
 def submit_view(request):
     if request.method == 'POST':
-        # Handle final form submission here
-         return render(request, 'orders/success.html')
+        # If this is a separate step after the confirmation, handle any final processing here
+        # For now, just redirect to a success page
+        return render(request, 'orders/success.html')
           
-    return redirect('onboarding')
+    return redirect('success')
+
+
+
+
+
+
 
 
 

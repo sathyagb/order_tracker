@@ -52,7 +52,9 @@
 <body>
     <div class="onboarding-container">
         <h1>New Customer Onboarding</h1>
-        <form id="onboarding-form" method="post">
+        <form id="onboarding-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
         
             <div class="form-group">
                 <label for="customer-name">Customer Name:</label>
@@ -62,16 +64,23 @@
             <div class="form-group">
                 <label for="iot-product-type">IoT Product Type:</label>
                 <select id="iot-product-type" name="iot_product_type" required>
-                    <option value="">Select Product Type</option>
+                    <option value="" disabled selected>- Select Product Type -</option>
                     <option value="NBIoT">NBIoT</option>
                     <option value="WBIoT">WBIoT</option>
                 </select>
             </div>
 
             <div class="form-group">
+                <label for="use-case">Use Case:</label>
+                <input maxlength="1250" placeholder="Description - 250 words" type="text" id="dns-ip" name="dns-ip">
+                
+
+            </div>
+
+            <div class="form-group">
                 <label for="apns-required">No. of APNs required:</label>
                 <select id="apns-required" name="apns_required" onchange="generateAPNFields()" required>
-                    <option value="">Select Number</option>
+                    <option value="" disabled selected>- Select Number -</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -89,22 +98,17 @@
             <div class="form-group">
                 <label for="lastmile">Last Mile:</label>
                 <select id="lastmile" name="lastmile" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="MPLS">MPLS</option>
                     <option value="Internet">Internet</option>
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="apn-type">APN Type:</label>
-                <select id="apn-type" name="apn_type" required>
-                    <option value="shared APN">Shared APN</option>
-                    <!-- Add other options as needed -->
-                </select>
-            </div>
 
             <div class="form-group">
                 <label for="ip-schema">IP Schema:</label>
                 <select id="ip-schema" name="ip_schema" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Static">Static</option>
                     <option value="Dynamic">Dynamic</option>
                     
@@ -114,6 +118,7 @@
             <div class="form-group">
                 <label for="ip-address-family">IP Address Family:</label>
                 <select id="ip-address-family" name="ip_address_family" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="IPv4">IPV4</option>
                     <option value="IPv6">IPV6</option>
                 </select>
@@ -122,6 +127,7 @@
             <div class="form-group">
                 <label for="device-ip-owner">Device IP Owner:</label>
                 <select id="device-ip-owner" name="device_ip_owner" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Jio">JIO</option>
                     <option value="Customer">Customer</option>
                 </select>
@@ -130,6 +136,7 @@
             <div class="form-group">
                 <label for="dns-owner">DNS Owner:</label>
                 <select id="dns-owner" name="dns-owner" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Yes">JIO</option>
                     <option value="No">Customer</option>
                 </select>
@@ -138,7 +145,207 @@
             <div class="form-group">
                 <label for="dns-ip">DNS IP:</label>
                 <input type="text" id="dns-ip" name="dns-ip">
+            </div>
+
+            <div class="form-group">
+                <label for="ip-pool">UE IP POOL:</label>
+                <input type="text" id="ip-pool" name="ip-pool">
+            </div>
+
+            <div class="form-group">
+                <label for="mpls-terminations-circle-dc">MPLS Link Termination Circle for DC:</label>
+                <select id="mpls-terminations-circle-dc" name="mpls-terminations-circle-dc" required>
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="pan-india">PAN INDIA</option>
+                    <option value="AP">AP</option>
+                    <option value="AS">AS</option>
+                    <option value="BR">BR</option>
+                    <option value="DL">DL</option>
+                    <option value="GJ">GJ</option>
+                    <option value="HP">HP</option>
+                    <option value="HR">HR</option>
+                    <option value="JK">JK</option>
+                    <option value="KA">KA</option>
+                    <option value="KL">KL</option>
+                    <option value="KR">KR</option>
+                    <option value="MH">MH</option>
+                    <option value="MP">MP</option>
+                    <option value="MU">MU</option>
+                    <option value="NE">NE</option>
+                    <option value="OR">OR</option>
+                    <option value="PJ">PJ</option>
+                    <option value="RJ">RJ</option>
+                    <option value="TN">TN</option>
+                    <option value="UE">UE</option>
+                    <option value="UW">UW</option>
+                    <option value="WB">WB</option>
+
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mpls-terminations-circle-DR">MPLS Link Termination Circle for DR:</label>
+                <select id="mpls-terminations-circle-DR" name="mpls-terminations-circle-DR" required>
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="pan-india">PAN INDIA</option>
+                    <option value="AP">AP</option>
+                    <option value="AS">AS</option>
+                    <option value="BR">BR</option>
+                    <option value="DL">DL</option>
+                    <option value="GJ">GJ</option>
+                    <option value="HP">HP</option>
+                    <option value="HR">HR</option>
+                    <option value="JK">JK</option>
+                    <option value="KA">KA</option>
+                    <option value="KL">KL</option>
+                    <option value="KR">KR</option>
+                    <option value="MH">MH</option>
+                    <option value="MP">MP</option>
+                    <option value="MU">MU</option>
+                    <option value="NE">NE</option>
+                    <option value="OR">OR</option>
+                    <option value="PJ">PJ</option>
+                    <option value="RJ">RJ</option>
+                    <option value="TN">TN</option>
+                    <option value="UE">UE</option>
+                    <option value="UW">UW</option>
+                    <option value="WB">WB</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sim-activation-circle">SIM Activation Circle:</label>
+                <select id="sim-activation-circle" name="sim-activation-circle" required>
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="pan-india">PAN INDIA</option>
+                    <option value="AP">AP</option>
+                    <option value="AS">AS</option>
+                    <option value="BR">BR</option>
+                    <option value="DL">DL</option>
+                    <option value="GJ">GJ</option>
+                    <option value="HP">HP</option>
+                    <option value="HR">HR</option>
+                    <option value="JK">JK</option>
+                    <option value="KA">KA</option>
+                    <option value="KL">KL</option>
+                    <option value="KR">KR</option>
+                    <option value="MH">MH</option>
+                    <option value="MP">MP</option>
+                    <option value="MU">MU</option>
+                    <option value="NE">NE</option>
+                    <option value="OR">OR</option>
+                    <option value="PJ">PJ</option>
+                    <option value="RJ">RJ</option>
+                    <option value="TN">TN</option>
+                    <option value="UE">UE</option>
+                    <option value="UW">UW</option>
+                    <option value="WB">WB</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sim-deployment-circle">SIM Deployment Circle:</label>
+                <select id="sim-deployment-circle" name="sim-deployment-circle" required>
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="pan-india">PAN INDIA</option>
+                    <option value="AP">AP</option>
+                    <option value="AS">AS</option>
+                    <option value="BR">BR</option>
+                    <option value="DL">DL</option>
+                    <option value="GJ">GJ</option>
+                    <option value="HP">HP</option>
+                    <option value="HR">HR</option>
+                    <option value="JK">JK</option>
+                    <option value="KA">KA</option>
+                    <option value="KL">KL</option>
+                    <option value="KR">KR</option>
+                    <option value="MH">MH</option>
+                    <option value="MP">MP</option>
+                    <option value="MU">MU</option>
+                    <option value="NE">NE</option>
+                    <option value="OR">OR</option>
+                    <option value="PJ">PJ</option>
+                    <option value="RJ">RJ</option>
+                    <option value="TN">TN</option>
+                    <option value="UE">UE</option>
+                    <option value="UW">UW</option>
+                    <option value="WB">WB</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mpls-termina-circle">SIM Activation Circle:</label>
+                <select id="sim-activation-circle" name="sim-activation-circle" required>
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="pan-india">PAN INDIA</option>
+                    <option value="AP">AP</option>
+                    <option value="AS">AS</option>
+                    <option value="BR">BR</option>
+                    <option value="DL">DL</option>
+                    <option value="GJ">GJ</option>
+                    <option value="HP">HP</option>
+                    <option value="HR">HR</option>
+                    <option value="JK">JK</option>
+                    <option value="KA">KA</option>
+                    <option value="KL">KL</option>
+                    <option value="KR">KR</option>
+                    <option value="MH">MH</option>
+                    <option value="MP">MP</option>
+                    <option value="MU">MU</option>
+                    <option value="NE">NE</option>
+                    <option value="OR">OR</option>
+                    <option value="PJ">PJ</option>
+                    <option value="RJ">RJ</option>
+                    <option value="TN">TN</option>
+                    <option value="UE">UE</option>
+                    <option value="UW">UW</option>
+                    <option value="WB">WB</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mpls-terminations-circle">MPLS Link Termination Circle:</label>
+                <select id="mpls-terminations-circle" name="mpls-terminations-circle" required>
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="pan-india">PAN INDIA</option>
+                    <option value="AP">AP</option>
+                    <option value="AS">AS</option>
+                    <option value="BR">BR</option>
+                    <option value="DL">DL</option>
+                    <option value="GJ">GJ</option>
+                    <option value="HP">HP</option>
+                    <option value="HR">HR</option>
+                    <option value="JK">JK</option>
+                    <option value="KA">KA</option>
+                    <option value="KL">KL</option>
+                    <option value="KR">KR</option>
+                    <option value="MH">MH</option>
+                    <option value="MP">MP</option>
+                    <option value="MU">MU</option>
+                    <option value="NE">NE</option>
+                    <option value="OR">OR</option>
+                    <option value="PJ">PJ</option>
+                    <option value="RJ">RJ</option>
+                    <option value="TN">TN</option>
+                    <option value="UE">UE</option>
+                    <option value="UW">UW</option>
+                    <option value="WB">WB</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mpls-circuit-id">MPLS Circuit ID:</label>
+                <input type="text" id="mpls-circuit-id" name="mpls-circuit-id">
+            </div>
+
+            <div class="form-group">
+                <label for="mpls-orn-number">MPLS ORN Number:</label>
+                <input type="text" id="mpls-orn-number" name="mpls-orn-number" required>
             </div>
 
             <div class="form-group">
@@ -152,6 +359,7 @@
             <div class="form-group">
                 <label for="voice-service">Voice Services:</label>
                 <select id="voice-service" name="voice_service" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>
                 </select>
@@ -160,6 +368,7 @@
             <div class="form-group">
                 <label for="voice-mt-service">Voice MT Service:</label>
                 <select id="voice-mt-service" name="voice_mt_service" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
@@ -168,6 +377,7 @@
             <div class="form-group">
                 <label for="sms-services">SMS Services:</label>
                 <select id="sms-services" name="sms_services" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>
                 </select>
@@ -176,6 +386,7 @@
             <div class="form-group">
                 <label for="sms-mt-service">SMS MT Service:</label>
                 <select id="sms-mt-service" name="sms_mt_service" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
@@ -184,6 +395,7 @@
             <div class="form-group">
                 <label for="data-service">Data Service:</label>
                 <select id="data-service" name="data_service" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
@@ -192,6 +404,7 @@
             <div class="form-group">
                 <label for="national-roaming">National Roaming:</label>
                 <select id="national-roaming" name="national_roaming" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
@@ -200,12 +413,30 @@
             <div class="form-group">
                 <label for="international-roaming">International Roaming:</label>
                 <select id="international-roaming" name="international_roaming" required>
+                    <option value="" disabled selected>- Select -</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </div>
 
-            <button type="button" onclick="goToConfirmation()">Next</button>
+            <div class="form-group">
+                <label for="solution-document">Solution Document:</label>
+                <input type="file" id="solution-document" name="solution_document" accept=".pdf,.doc,.docx" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="type2-file">TYPE-2 File:</label>
+                <input type="file" id="type2-file" name="type2_file" accept=".xlsx,.xls,.pdf,.doc,.docx" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="mdb-file">MDB File:</label>
+                <input type="file" id="mdb-file" name="mdb_file" accept=".mdb,.pdf,.doc,.docx" required>
+            </div>
+            
+            
+
+            <button type="submit">Next</button>
         </form>
     </div>
 
@@ -259,10 +490,33 @@
             }
         }
 
+        document.getElementById('onboarding-form').onsubmit = function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+            // Check if the form is valid
+            if (this.checkValidity()) {
+            // Here, you can handle the form data or redirect as needed
+               goToConfirmation();  // Call your function to handle the data or redirect
+            } else {
+            // Optionally alert the user
+               alert("Please fill out all required fields.");
+            }
+        };
+
         function goToConfirmation() {
             const formData = new FormData(document.getElementById('onboarding-form'));
             const data = {};
-            formData.forEach((value, key) => (data[key] = value));
+            // Iterate over all form entries
+            formData.forEach((value, key) => {
+            // Check if the form item is a file
+                if (value instanceof File && value.name) {
+            // Store the file name instead of the file object
+                    data[key] = value.name;
+                } else {
+            // Store regular form values
+                    data[key] = value;
+                }
+            });
             console.log('data: ', data)
 
             sessionStorage.setItem('customerData', JSON.stringify(data));
